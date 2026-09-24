@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -34,7 +34,7 @@
   body.resizing{cursor:col-resize;user-select:none}
   @media (max-width:760px){ .resizer{display:none} }
   .panel{background:#050a06;border-radius:6px;box-shadow:inset 0 0 10px rgba(0,0,0,.9),inset 0 0 0 2px #000}
-  /* ---- Fiche du morceau (tags) ---- */
+  /* ---- Track info card (tags) ---- */
   .info{flex:0 0 auto;padding:12px;display:flex;flex-direction:column;gap:12px}
   .infoTop{display:flex;gap:12px;align-items:stretch;min-width:0}
   .cover{flex:0 0 96px;width:96px;height:96px;border-radius:4px;overflow:hidden;position:relative;background:#0a140d;
@@ -90,7 +90,7 @@
     .side{flex:0 0 auto}
     .pl{flex:0 0 28vh}
   }
-  /* ---- Plein écran de la zone de visualisation ---- */
+  /* ---- Fullscreen for the visualization area ---- */
   .stage{position:relative}
   .stage.fs{position:fixed;inset:0;z-index:100;background:#000;gap:0}
   .stage.fs .videoPanel{border-radius:0;box-shadow:none}
@@ -140,7 +140,7 @@
   .seekWrap #seek{flex:0 1 50%}
   .seekWrap .volArea{margin-left:auto}
   @media (max-width:560px){ .seekWrap{flex-wrap:wrap} .seekWrap #seek{flex:1 1 100%;order:1} .seekWrap .volArea{order:2;margin-left:0} .seekWrap #tPos{order:0} .seekWrap #tDur{order:1} }
-  /* ---- Égaliseur ---- */
+  /* ---- Equalizer ---- */
   .eq{flex:0 0 auto;padding:8px 12px 10px;display:flex;flex-direction:column;gap:6px}
   .eqHead{display:flex;align-items:center;gap:8px;min-width:0}
   .eqHead .ttl{font:700 12px var(--ui);color:var(--lcd);letter-spacing:2px;text-shadow:0 0 6px rgba(57,255,138,.5)}
@@ -164,14 +164,14 @@
   .band label{font:700 9px var(--ui);letter-spacing:.5px;color:var(--lcd-dim);white-space:nowrap}
   .eqPre{display:flex;align-items:stretch;gap:14px;padding-right:14px;border-right:1px solid #0f2a18}
   .eqScale{display:flex;flex-direction:column;justify-content:space-between;height:84px;font:700 9px var(--ui);color:var(--lcd-dim);text-align:right}
-  /* ---- Barre des effets (entre la fiche ID3 et la playlist) ---- */
+  /* ---- Effects bar (between the track info card and the playlist) ---- */
   .vizCtl{flex:0 0 auto;padding:8px 10px 10px;display:flex;flex-direction:column;gap:8px}
   .vcHead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-width:0}
   .vcHead .ttl{font:700 12px var(--ui);color:var(--lcd);letter-spacing:2px;text-shadow:0 0 6px rgba(57,255,138,.5)}
   .vcHead .hint{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 8.5px var(--ui);letter-spacing:.8px;color:var(--lcd-dim)}
   .vcBtns{display:grid;grid-template-columns:1.25fr 1fr 1fr 1.25fr 1.4fr;gap:6px}
   .vcBtns .tBtn{min-width:0;padding:0;width:100%}
-  /* ---- Ascenseurs aux couleurs de l'interface (gouttière sombre + poignée verte LCD) ---- */
+  /* ---- Scrollbars matching the interface (dark track + green LCD thumb) ---- */
   ::-webkit-scrollbar{width:10px;height:10px;background:transparent}
   ::-webkit-scrollbar-track{background:#050a06;border-radius:5px;margin:2px;
     box-shadow:inset 0 0 0 1px #000,inset 0 0 4px rgba(0,0,0,.9)}
@@ -186,7 +186,7 @@
   .transport::-webkit-scrollbar{height:8px}
   .transport::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#2f8a55,#1f6b3e 55%,#175530)}
   .transport::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#4fd483,#39ff8a 55%,#2bc76b)}
-  /* Firefox (Chrome/Safari utilisent les règles ::-webkit-scrollbar ci-dessus) */
+  /* Firefox (Chrome/Safari use the ::-webkit-scrollbar rules above) */
   @supports not selector(::-webkit-scrollbar){
     *{scrollbar-width:thin;scrollbar-color:#2f8a55 #050a06}
   }
@@ -235,23 +235,23 @@
         <div class="fsTop"><span class="fsTitle" id="fsTitle"></span><span class="fsTime" id="fsTime">00:00 / 00:00</span></div>
         <input type="range" id="fsSeek" min="0" max="100" value="0" step="0.1" aria-label="Position">
         <div class="fsCtl">
-          <button id="fsPrev" aria-label="Précédent">⏮</button>
-          <button id="fsPlay" aria-label="Lecture / pause">▶</button>
-          <button id="fsNext" aria-label="Suivant">⏭</button>
+          <button id="fsPrev" aria-label="Previous">⏮</button>
+          <button id="fsPlay" aria-label="Play / pause">▶</button>
+          <button id="fsNext" aria-label="Next">⏭</button>
           <span class="sp"></span>
-          <button class="small" id="fsPreset" aria-label="Preset suivant" title="Preset suivant (N)">PRESET ▶</button>
-          <button id="fsExit" aria-label="Quitter le plein écran" title="Quitter (Échap)">✕</button>
+          <button class="small" id="fsPreset" aria-label="Next preset" title="Next preset (N)">PRESET ▶</button>
+          <button id="fsExit" aria-label="Exit fullscreen" title="Exit (Esc)">✕</button>
         </div>
       </div>
     </div>
-    <section class="eq panel off" id="eq" aria-label="Égaliseur">
+    <section class="eq panel off" id="eq" aria-label="Equalizer">
       <div class="eqHead">
-        <span class="ttl">ÉGALISEUR</span>
-        <button class="plBtn" id="eqOn" title="Activer / couper l'égaliseur">OFF</button>
-        <select class="eqSel" id="eqPreset" aria-label="Préréglage"></select>
-        <button class="plBtn" id="eqReset" title="Tout remettre à zéro">RESET</button>
-        <span class="read" id="eqRead">Double-clic sur un curseur pour le remettre à 0</span>
-        <button class="plBtn" id="eqFold" title="Replier / déplier l'égaliseur">▾</button>
+        <span class="ttl">EQUALIZER</span>
+        <button class="plBtn" id="eqOn" title="Turn the equalizer on / off">OFF</button>
+        <select class="eqSel" id="eqPreset" aria-label="Preset"></select>
+        <button class="plBtn" id="eqReset" title="Reset everything to zero">RESET</button>
+        <span class="read" id="eqRead">Double-click a slider to reset it to 0</span>
+        <button class="plBtn" id="eqFold" title="Collapse / expand the equalizer">▾</button>
       </div>
       <div class="eqBody">
         <div class="eqPre">
@@ -268,56 +268,56 @@
       <div class="volArea"><span>VOL</span><input type="range" id="vol" min="0" max="1" value="0.9" step="0.01" aria-label="Volume"></div>
     </div>
     <div class="transport">
-      <button class="btn" id="prevBtn" aria-label="Précédent"><div class="tri left"></div></button>
-      <button class="btn play" id="playBtn" aria-label="Lecture"><div class="tri right"></div></button>
+      <button class="btn" id="prevBtn" aria-label="Previous"><div class="tri left"></div></button>
+      <button class="btn play" id="playBtn" aria-label="Play"><div class="tri right"></div></button>
       <button class="btn" id="pauseBtn" aria-label="Pause"><div class="bars2"><i></i><i></i></div></button>
       <button class="btn" id="stopBtn" aria-label="Stop"><div class="sq"></div></button>
-      <button class="btn" id="nextBtn" aria-label="Suivant"><div class="tri right"></div></button>
-      <button class="loadBtn ico" id="loadBtn" title="Ouvrir des fichiers audio" aria-label="Ouvrir des fichiers audio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 3.5 14h17z"/><path d="M4 19.5h16"/></svg></button>
+      <button class="btn" id="nextBtn" aria-label="Next"><div class="tri right"></div></button>
+      <button class="loadBtn ico" id="loadBtn" title="Open audio files" aria-label="Open audio files"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 3.5 14h17z"/><path d="M4 19.5h16"/></svg></button>
       <div class="grp">
-        <button class="tBtn ico" id="shufBtn" title="Lecture aléatoire (S)" aria-label="Lecture aléatoire"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></svg></button>
-        <button class="tBtn ico on" id="repBtn" title="Répétition : toute la liste (T)" aria-label="Répétition : toute la liste"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/><path class="one" d="M11 10h1v4"/></svg></button>
+        <button class="tBtn ico" id="shufBtn" title="Shuffle (S)" aria-label="Shuffle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></svg></button>
+        <button class="tBtn ico on" id="repBtn" title="Repeat: whole list (T)" aria-label="Repeat: whole list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/><path class="one" d="M11 10h1v4"/></svg></button>
       </div>
     </div>
    </div>
-   <div class="resizer" id="sideResizer" title="Glisser pour redimensionner la playlist"></div>
+   <div class="resizer" id="sideResizer" title="Drag to resize the playlist"></div>
    <div class="side" id="side">
-   <section class="info panel empty" id="info" aria-label="Informations du morceau">
+   <section class="info panel empty" id="info" aria-label="Track information">
      <div class="infoTop">
        <div class="cover" id="iCoverBox"><img id="iCover" alt=""><div class="ph"><img id="iPh" alt=""><span id="iPhTxt">AUDIO</span></div></div>
        <div class="idTxt">
-         <div class="iTitle" id="iTitle">Aucun morceau chargé</div>
+         <div class="iTitle" id="iTitle">No track loaded</div>
          <div class="iArtist" id="iArtist"></div>
          <div class="iAlbum" id="iAlbum"></div>
        </div>
      </div>
      <dl class="iGrid">
-       <div><dt>ANNÉE</dt><dd id="iYear">-</dd></div>
-       <div><dt>PISTE</dt><dd id="iTrack">-</dd></div>
-       <div><dt>DURÉE</dt><dd id="iDur">-</dd></div>
+       <div><dt>YEAR</dt><dd id="iYear">-</dd></div>
+       <div><dt>TRACK</dt><dd id="iTrack">-</dd></div>
+       <div><dt>DURATION</dt><dd id="iDur">-</dd></div>
        <div><dt>FORMAT</dt><dd id="iCodec">-</dd></div>
-       <div><dt>DÉBIT</dt><dd id="iRate">-</dd></div>
-       <div><dt>TAILLE</dt><dd id="iSize">-</dd></div>
+       <div><dt>BITRATE</dt><dd id="iRate">-</dd></div>
+       <div><dt>SIZE</dt><dd id="iSize">-</dd></div>
        <div class="wide"><dt id="iGenreLbl">GENRE</dt><dd id="iGenre">-</dd></div>
        <div class="wide"><dt>SIGNAL</dt><dd id="iSignal">-</dd></div>
      </dl>
    </section>
-   <section class="vizCtl panel" id="vizCtl" aria-label="Effets de visualisation">
-     <div class="vcHead"><span class="ttl">EFFETS</span></div>
+   <section class="vizCtl panel" id="vizCtl" aria-label="Visualization effects">
+     <div class="vcHead"><span class="ttl">EFFECTS</span></div>
      <div class="vcBtns">
-       <button class="tBtn" id="modeBtn" title="Basculer spectre / MilkDrop (M)">LED</button>
-       <button class="tBtn" id="pPrev" title="Effet précédent (B)" aria-label="Effet précédent" disabled>◀</button>
-       <button class="tBtn" id="pNext" title="Effet suivant (N)" aria-label="Effet suivant" disabled>▶</button>
-       <button class="tBtn" id="pRand" title="Effet aléatoire (R)" disabled>RND</button>
-       <button class="tBtn on" id="pAuto" title="Changement automatique des effets" disabled>AUTO</button>
+       <button class="tBtn" id="modeBtn" title="Switch spectrum / MilkDrop (M)">LED</button>
+       <button class="tBtn" id="pPrev" title="Previous effect (B)" aria-label="Previous effect" disabled>◀</button>
+       <button class="tBtn" id="pNext" title="Next effect (N)" aria-label="Next effect" disabled>▶</button>
+       <button class="tBtn" id="pRand" title="Random effect (R)" disabled>RND</button>
+       <button class="tBtn on" id="pAuto" title="Automatic effect switching" disabled>AUTO</button>
      </div>
    </section>
    <aside class="pl" id="pl">
      <div class="plHead"><span class="ttl">PLAYLIST</span><span class="cnt" id="plCount">0</span>
-       <button class="plBtn" id="plAdd" title="Ajouter des fichiers">+ AJOUTER</button>
-       <button class="plBtn" id="plClear" title="Vider la playlist">VIDER</button></div>
+       <button class="plBtn" id="plAdd" title="Add files">+ ADD</button>
+       <button class="plBtn" id="plClear" title="Clear the playlist">CLEAR</button></div>
      <ul id="plList"></ul>
-     <div class="plEmpty">Glisse tes morceaux et vidéos ici<br>ou utilise + AJOUTER</div>
+     <div class="plEmpty">Drop your tracks and videos here<br>or use + ADD</div>
    </aside>
    </div>
   </div>
@@ -335,11 +335,11 @@ const vol=$('vol'), nowTitle=$('nowTitle');
 
 let playlist=[], idx=-1, currentEl=audio, isVideo=false;
 let mode='led', milk=null, milkLoading=null, autoOn=true, lastSwitch=0, nameTimer=0, wantPreset=null;
-/* Graphe audio : chaque source (audio, vidéo) -> bus commun -> sortie + analyseur LED + MilkDrop */
+/* Audio graph: each source (audio, video) -> shared bus -> output + LED analyzer + MilkDrop */
 let actx=null, bus=null, analyser=null, specBuf=null; const sources={};
-/* Chrome crée l'AudioContext en état "suspended" s'il n'y a pas eu de geste utilisateur
-   (cas typique : fichiers lâchés en drag and drop). Le son passant par ce contexte, la lecture
-   avance alors en silence. On le réactive au moindre clic ou touche, et on prévient l'utilisateur. */
+/* Chrome creates the AudioContext in the "suspended" state if there was no user gesture
+   (typical case: files dropped via drag and drop). Since the sound goes through that context, playback
+   then advances silently. It is resumed on the first click or key press, and the user is warned. */
 let audioBlocked=false;
 function unlockAudio(){
   if(actx && actx.state!=='running') actx.resume().catch(()=>{});
@@ -350,9 +350,9 @@ function showAudioHint(msg){
   nowTitle.textContent='▸ '+msg; nowTitle.classList.add('warn');
 }
 function checkAudioState(){
-  if(actx && actx.state!=='running' && !currentEl.paused) showAudioHint('Son bloqué par le navigateur : clique n\'importe où pour l\'activer');
+  if(actx && actx.state!=='running' && !currentEl.paused) showAudioHint('Sound blocked by the browser: click anywhere to enable it');
 }
-/* ---- État de l'égaliseur (existe avant l'AudioContext) ---- */
+/* ---- Equalizer state (exists before the AudioContext) ---- */
 const EQ_FREQS=[60,170,310,600,1000,3000,6000,12000,14000,16000];
 const EQ_LABELS=['60','170','310','600','1K','3K','6K','12K','14K','16K'];
 const EQ_PRESETS={
@@ -361,13 +361,13 @@ const EQ_PRESETS={
   'Pop':[-1,2.9,4.3,4.8,3.4,-1,-1.4,-1.4,-1,-1],
   'Dance':[5.8,4.3,1.4,0,0,-3.4,-4.3,-4.3,0,0],
   'Techno':[4.8,3.4,0,-3.4,-2.9,0,4.8,5.8,5.8,5.3],
-  'Classique':[0,0,0,0,0,0,-4.3,-4.3,-4.3,-5.8],
-  'Basses':[4.8,4.8,4.8,2.9,1,-2.4,-4.8,-6.3,-6.7,-6.7],
-  'Aigus':[-5.8,-5.8,-5.8,-2.4,1.4,6.7,9.6,9.6,9.6,10.1],
-  'Voix':[-1.4,-2.9,-2.9,1.4,4.3,4.3,3.4,1.4,0,-1.4],
-  'Petits HP':[2.9,6.7,3.4,-2.4,-1.4,1,2.9,5.8,7.7,8.7]
+  'Classical':[0,0,0,0,0,0,-4.3,-4.3,-4.3,-5.8],
+  'Bass':[4.8,4.8,4.8,2.9,1,-2.4,-4.8,-6.3,-6.7,-6.7],
+  'Treble':[-5.8,-5.8,-5.8,-2.4,1.4,6.7,9.6,9.6,9.6,10.1],
+  'Vocal':[-1.4,-2.9,-2.9,1.4,4.3,4.3,3.4,1.4,0,-1.4],
+  'Small speakers':[2.9,6.7,3.4,-2.4,-1.4,1,2.9,5.8,7.7,8.7]
 };
-let eqGains=EQ_PRESETS.Flat.slice(), eqPre=0, eqEnabled=false;   /* rétabli depuis les réglages mémorisés */
+let eqGains=EQ_PRESETS.Flat.slice(), eqPre=0, eqEnabled=false;   /* restored from saved settings */
 let preampNode=null, eqFilters=null, eqOut=null;
 function applyEq(){
   if(!eqFilters) return;
@@ -382,7 +382,7 @@ function ensureCtx(){
   bus=actx.createGain();
   analyser=actx.createAnalyser(); analyser.fftSize=2048; analyser.smoothingTimeConstant=.7;
   specBuf=new Uint8Array(analyser.frequencyBinCount);
-  /* bus -> préampli -> 10 filtres -> eqOut -> (sortie, analyseur, MilkDrop) */
+  /* bus -> preamp -> 10 filters -> eqOut -> (output, analyzer, MilkDrop) */
   preampNode=actx.createGain();
   eqFilters=EQ_FREQS.map((f,i)=>{
     const b=actx.createBiquadFilter();
@@ -400,7 +400,7 @@ function graphFor(el,key){
   if(!sources[key]){ sources[key]=actx.createMediaElementSource(el); sources[key].connect(bus); }
 }
 
-/* ---- Spectre LED plein cadre ---- */
+/* ---- Full-frame LED spectrum ---- */
 const cv=$('spec'), cx=cv.getContext('2d');
 let W=0,H=0,dpr=1,nBars=48,levels=[],peaks=[],peakHold=[];
 function resize(){
@@ -464,7 +464,7 @@ function kindOf(f){
   if(f.type.startsWith('audio/')) return 'audio';
   return VIDEO_EXT.test(f.name)?'video':'audio';
 }
-/* ================= Lecture des tags (ID3v1/v2, FLAC, WAV) + infos techniques ================= */
+/* ================= Tag reading (ID3v1/v2, FLAC, WAV) + technical info ================= */
 const ID3_GENRES=['Blues','Classic Rock','Country','Dance','Disco','Funk','Grunge','Hip-Hop','Jazz','Metal','New Age','Oldies','Other','Pop','R&B','Rap','Reggae','Rock','Techno','Industrial','Alternative','Ska','Death Metal','Pranks','Soundtrack','Euro-Techno','Ambient','Trip-Hop','Vocal','Jazz+Funk','Fusion','Trance','Classical','Instrumental','Acid','House','Game','Sound Clip','Gospel','Noise','Alternative Rock','Bass','Soul','Punk','Space','Meditative','Instrumental Pop','Instrumental Rock','Ethnic','Gothic','Darkwave','Techno-Industrial','Electronic','Pop-Folk','Eurodance','Dream','Southern Rock','Comedy','Cult','Gangsta','Top 40','Christian Rap','Pop/Funk','Jungle','Native American','Cabaret','New Wave','Psychedelic','Rave','Showtunes','Trailer','Lo-Fi','Tribal','Acid Punk','Acid Jazz','Polka','Retro','Musical','Rock & Roll','Hard Rock'];
 const readBytes=(file,start,end)=>file.slice(start,end).arrayBuffer().then(b=>new Uint8Array(b));
 const latin1=new TextDecoder('latin1'), utf8=new TextDecoder('utf-8');
@@ -486,7 +486,7 @@ function decodeText(enc,b){
   } else s=new TextDecoder('utf-16be').decode(b);
   return s.replace(/\u0000+$/,'').split('\u0000')[0].trim();
 }
-/* Position de la fin d'une chaîne terminée par zéro, selon l'encodage */
+/* Position of the end of a zero-terminated string, depending on the encoding */
 function zeroEnd(b,pos,enc){
   if(enc===1||enc===2){ for(let i=pos;i+1<b.length;i+=2) if(b[i]===0&&b[i+1]===0) return i; return b.length; }
   for(let i=pos;i<b.length;i++) if(b[i]===0) return i; return b.length;
@@ -512,7 +512,7 @@ function parseID3v2(b,meta){
       const enc=d[0]; let q=1, mime;
       if(id==='PIC'){ const fmt=latin1.decode(d.subarray(1,4)).toLowerCase(); mime=fmt==='png'?'image/png':'image/jpeg'; q=4; }
       else{ const e=zeroEnd(d,1,0); mime=latin1.decode(d.subarray(1,e))||'image/jpeg'; q=e+1; if(!mime.includes('/')) mime='image/'+mime.toLowerCase(); }
-      q+=1; /* type d'image */
+      q+=1; /* picture type */
       const de=zeroEnd(d,q,enc); q=de+((enc===1||enc===2)?2:1);
       meta.coverBlob=new Blob([d.subarray(q)],{type:mime});
     }
@@ -544,7 +544,7 @@ function parseMpegFrame(b,start,meta){
     meta.codec=(ver===1?'MPEG-1':ver===2?'MPEG-2':'MPEG-2.5')+' Layer '+['','I','II','III'][layer];
     if(layer===3) meta.codec='MP3';
     meta.sampleRate=MP3_SR[ver][si];
-    meta.channels=['Stéréo','Joint stéréo','Double mono','Mono'][b[i+3]>>6];
+    meta.channels=['Stereo','Joint stereo','Dual mono','Mono'][b[i+3]>>6];
     const win=latin1.decode(b.subarray(i+4,Math.min(i+200,b.length)));
     if(win.includes('Xing')||win.includes('VBRI')) meta.vbr=true;
     else meta.bitrate=tab[bi];
@@ -561,7 +561,7 @@ function parseFlacBlocks(file){
         const d=await readBytes(file,p+4,p+4+len);
         if(type===0){
           meta.sampleRate=(d[10]<<12)|(d[11]<<4)|(d[12]>>4);
-          const ch=((d[12]>>1)&7)+1; meta.channels=ch===1?'Mono':ch===2?'Stéréo':ch+' canaux';
+          const ch=((d[12]>>1)&7)+1; meta.channels=ch===1?'Mono':ch===2?'Stereo':ch+' channels';
           meta.bits=(((d[12]&1)<<4)|(d[13]>>4))+1;
         } else if(type===4){
           const dv=new DataView(d.buffer,d.byteOffset,d.byteLength); let q=4+dv.getUint32(0,true);
@@ -593,7 +593,7 @@ async function parseWav(file){
     if(id==='fmt '){
       const fmt=dv.getUint16(p+8,true); const ch=dv.getUint16(p+10,true);
       meta.sampleRate=dv.getUint32(p+12,true); meta.bits=dv.getUint16(p+22,true);
-      meta.channels=ch===1?'Mono':ch===2?'Stéréo':ch+' canaux'; if(fmt===3) meta.codec='WAV float';
+      meta.channels=ch===1?'Mono':ch===2?'Stereo':ch+' channels'; if(fmt===3) meta.codec='WAV float';
       meta.bitrate=Math.round(meta.sampleRate*ch*meta.bits/1000);
     } else if(id==='LIST' && latin1.decode(b.subarray(p+8,p+12))==='INFO'){
       let q=p+12;
@@ -623,7 +623,7 @@ async function readTags(file){
       else parseMpegFrame(b,after,meta);
     } else if(ext==='MP3'){ parseMpegFrame(await readBytes(file,0,8192),0,meta); }
     if(ext==='MP3'||meta.codec==='MP3') parseID3v1(await readBytes(file,file.size-128,file.size),meta);
-  }catch(e){ console.warn('Tags illisibles pour',file.name,e); }
+  }catch(e){ console.warn('Unreadable tags for',file.name,e); }
   meta.genre=cleanGenre(meta.genre);
   if(meta.track) meta.track=meta.track.replace(/^0+(\d)/,'$1');
   if(meta.year) meta.year=meta.year.slice(0,4);
@@ -637,35 +637,35 @@ const infoEl=$('info'), iCoverBox=$('iCoverBox'), iCover=$('iCover');
 $('iPh').src=document.querySelector('.titlebar .logo').src;
 const displayTitle=t=>(t.meta&&t.meta.title)||t.name;
 const displayArtist=t=>(t.meta&&t.meta.artist)||'';
-function fmtSize(n){ return n>=1<<30?(n/(1<<30)).toFixed(2)+' Go':n>=1<<20?(n/(1<<20)).toFixed(1)+' Mo':Math.round(n/1024)+' Ko'; }
+function fmtSize(n){ return n>=1<<30?(n/(1<<30)).toFixed(2)+' GB':n>=1<<20?(n/(1<<20)).toFixed(1)+' MB':Math.round(n/1024)+' KB'; }
 function setTxt(id,v){ const el=$(id); el.textContent=v||'-'; el.title=v||''; }
 function renderInfo(){
   const t=curTrack();
   infoEl.classList.toggle('empty',!t);
   if(!t){
-    setTxt('iTitle','Aucun morceau chargé'); ['iArtist','iAlbum'].forEach(id=>$(id).textContent='');
+    setTxt('iTitle','No track loaded'); ['iArtist','iAlbum'].forEach(id=>$(id).textContent='');
     ['iYear','iTrack','iDur','iCodec','iRate','iSize','iGenre','iSignal'].forEach(id=>setTxt(id,''));
     iCoverBox.classList.remove('has'); iCover.removeAttribute('src'); $('iPhTxt').textContent='AUDIO'; return;
   }
   const m=t.meta||{}, el=currentEl, dur=isFinite(el.duration)?el.duration:0;
   setTxt('iTitle',displayTitle(t));
-  $('iArtist').textContent=m.artist||(t.kind==='video'?'':'Artiste inconnu');
+  $('iArtist').textContent=m.artist||(t.kind==='video'?'':'Unknown artist');
   $('iAlbum').textContent=m.album||'';
   setTxt('iYear',m.year); setTxt('iTrack',m.track); setTxt('iDur',dur?fmt(dur):'');
   setTxt('iCodec',m.codec); setTxt('iSize',fmtSize(t.size));
   let rate=m.bitrate?m.bitrate+' kbps':'';
-  if(!rate && dur) rate=Math.round(t.size*8/dur/1000)+' kbps'+(m.vbr||t.kind==='video'?' moy.':'');
+  if(!rate && dur) rate=Math.round(t.size*8/dur/1000)+' kbps'+(m.vbr||t.kind==='video'?' avg.':'');
   setTxt('iRate',rate);
   if(t.kind==='video'){
-    $('iGenreLbl').textContent='RÉSOLUTION';
+    $('iGenreLbl').textContent='RESOLUTION';
     setTxt('iGenre',video.videoWidth?video.videoWidth+' × '+video.videoHeight:'');
   } else { $('iGenreLbl').textContent='GENRE'; setTxt('iGenre',m.genre); }
   const sig=[m.sampleRate?(m.sampleRate/1000).toFixed(1).replace('.0','')+' kHz':'', m.bits?m.bits+' bits':'', m.channels||''].filter(Boolean).join(', ');
   setTxt('iSignal',sig);
   if(m.cover){ iCover.src=m.cover; iCoverBox.classList.add('has'); }
-  else { iCover.removeAttribute('src'); iCoverBox.classList.remove('has'); $('iPhTxt').textContent=t.kind==='video'?'VIDÉO':'AUDIO'; }
+  else { iCover.removeAttribute('src'); iCoverBox.classList.remove('has'); $('iPhTxt').textContent=t.kind==='video'?'VIDEO':'AUDIO'; }
 }
-/* Durées : sondées en arrière-plan avec un lecteur invisible, un fichier à la fois */
+/* Durations: probed in the background with an invisible player, one file at a time */
 let durQueue=Promise.resolve();
 function queueDuration(t){
   durQueue=durQueue.then(()=>new Promise(res=>{
@@ -678,7 +678,7 @@ function queueDuration(t){
     pr.src=t.url;
   }));
 }
-/* Lecture des tags en arrière-plan, un fichier à la fois */
+/* Tags are read in the background, one file at a time */
 let tagQueue=Promise.resolve();
 function queueTags(t){
   if(t.kind==='video'){ t.meta={codec:(t.file.name.match(/\.([^.]+)$/)||[,''])[1].toUpperCase()}; return; }
@@ -713,7 +713,7 @@ function renderPlaylist(){
     if(displayArtist(t)){ const ar=document.createElement('span'); ar.className='ar'; ar.textContent='  ·  '+displayArtist(t); nm.appendChild(ar); }
     nm.title=nm.textContent;
     const du=document.createElement('span'); du.className='du'; du.textContent=t.duration?fmt(t.duration):'';
-    const rm=document.createElement('button'); rm.className='rm'; rm.textContent='×'; rm.setAttribute('aria-label','Retirer '+t.name);
+    const rm=document.createElement('button'); rm.className='rm'; rm.textContent='×'; rm.setAttribute('aria-label','Remove '+t.name);
     li.append(ix,kd,nm,du,rm); plList.appendChild(li);
   });
   const total=playlist.reduce((a,t)=>a+(t.duration||0),0);
@@ -747,7 +747,7 @@ function loadTrack(i,autoplay=true){
   if(actx && actx.state==='suspended') actx.resume();
   currentEl.volume=vol.value;
   if(autoplay) currentEl.play().then(()=>setTimeout(checkAudioState,300)).catch(e=>{
-    if(e.name==='NotAllowedError') showAudioHint('Lecture bloquée par le navigateur : clique sur ▶');
+    if(e.name==='NotAllowedError') showAudioHint('Playback blocked by the browser: click ▶');
   });
 }
 function removeTrack(i){
@@ -768,14 +768,14 @@ function moveTrack(from,to){
   renderPlaylist();
 }
 
-/* Clic et suppression dans la liste */
+/* Click and remove in the list */
 plList.addEventListener('click',e=>{
   const li=e.target.closest('li'); if(!li) return;
   const i=+li.dataset.i;
   if(e.target.closest('.rm')) removeTrack(i); else loadTrack(i);
 });
 
-/* Drag & drop : réordonner (interne) ou ajouter des fichiers (externe) */
+/* Drag & drop: reorder (internal) or add files (external) */
 let dragFrom=-1;
 function clearDropMarks(){ plList.querySelectorAll('.dropBefore,.dropAfter').forEach(n=>n.classList.remove('dropBefore','dropAfter')); }
 plList.addEventListener('dragstart',e=>{
@@ -804,7 +804,7 @@ plEl.addEventListener('drop',e=>{
   if(dragFrom>=0){ moveTrack(dragFrom,dropIndex(e)); dragFrom=-1; return; }
   if(e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
 });
-/* Fichiers lâchés n'importe où ailleurs dans la fenêtre : ajoutés aussi */
+/* Files dropped anywhere else in the window are added too */
 window.addEventListener('dragover',e=>{ if(dragFrom<0) e.preventDefault(); });
 window.addEventListener('drop',e=>{ if(plEl.contains(e.target)) return; e.preventDefault(); if(e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
 
@@ -838,13 +838,13 @@ function goNext(auto){
   if(!playlist.length) return;
   if(auto && repeatMode==='one'){ currentEl.currentTime=0; currentEl.play().catch(()=>{}); return; }
   const n=nextIndex(auto);
-  if(n<0){ currentEl.pause(); currentEl.currentTime=0; return; }   /* fin de liste sans répétition */
+  if(n<0){ currentEl.pause(); currentEl.currentTime=0; return; }   /* end of list without repeat */
   const cur=curTrack(); if(cur){ playHistory.push(cur); if(playHistory.length>200) playHistory.shift(); }
   loadTrack(n);
 }
 function goPrev(){
   if(!playlist.length) return;
-  if(currentEl.currentTime>3){ currentEl.currentTime=0; return; }   /* comme Winamp : revient au début du morceau */
+  if(currentEl.currentTime>3){ currentEl.currentTime=0; return; }   /* like Winamp: goes back to the start of the track */
   if(shuffleOn){
     while(playHistory.length){ const t=playHistory.pop(); const i=playlist.indexOf(t); if(i>=0){ loadTrack(i); return; } }
   }
@@ -853,7 +853,7 @@ function goPrev(){
 function setShuffle(on){ shuffleOn=on; shuffleBag=[]; shufBtn.classList.toggle('on',on); saveSettings(); }
 function setRepeat(m){
   repeatMode=m;
-  const lbl={off:'Répétition : désactivée',all:'Répétition : toute la liste',one:'Répétition : un seul morceau'}[m];
+  const lbl={off:'Repeat: off',all:'Repeat: whole list',one:'Repeat: single track'}[m];
   repBtn.classList.toggle('one',m==='one'); repBtn.title=lbl+' (T)'; repBtn.setAttribute('aria-label',lbl);
   repBtn.classList.toggle('on',m!=='off'); saveSettings();
 }
@@ -878,10 +878,10 @@ renderPlaylist();
 seek.oninput=()=>{ if(currentEl.duration) currentEl.currentTime=(seek.value/100)*currentEl.duration; };
 vol.oninput=()=>{ audio.volume=vol.value; video.volume=vol.value; saveSettings(); };
 
-/* ---- Égaliseur : interface ---- */
+/* ---- Equalizer: interface ---- */
 const eqEl=$('eq'), eqBands=$('eqBands'), eqRead=$('eqRead'), eqPresetSel=$('eqPreset'), eqCurve=$('eqCurve');
 Object.keys(EQ_PRESETS).forEach(n=>{ const o=document.createElement('option'); o.value=n; o.textContent=n; eqPresetSel.appendChild(o); });
-const custom=document.createElement('option'); custom.value=''; custom.textContent='Perso'; custom.hidden=true; eqPresetSel.appendChild(custom);
+const custom=document.createElement('option'); custom.value=''; custom.textContent='Custom'; custom.hidden=true; eqPresetSel.appendChild(custom);
 const fmtDb=v=>(v>0?'+':'')+v.toFixed(1)+' dB';
 function makeSlider(host,label,get,set){
   const vs=document.createElement('div'); vs.className='vs'; vs.tabIndex=0; vs.setAttribute('role','slider');
@@ -889,7 +889,7 @@ function makeSlider(host,label,get,set){
   const fill=document.createElement('div'); fill.className='fill';
   const th=document.createElement('div'); th.className='th';
   vs.append(fill,th);
-  const lab=document.createElement('label'); lab.textContent=label==='Préampli'?'PRÉ':label.replace(' Hz','');
+  const lab=document.createElement('label'); lab.textContent=label==='Preamp'?'PRE':label.replace(' Hz','');
   host.append(vs,lab);
   const draw=()=>{
     const v=get(), y=(12-v)/24*100;
@@ -912,12 +912,12 @@ function makeSlider(host,label,get,set){
   draw(); return draw;
 }
 const drawers=[];
-drawers.push(makeSlider($('preBand'),'Préampli',()=>eqPre,v=>{ eqPre=v; }));
+drawers.push(makeSlider($('preBand'),'Preamp',()=>eqPre,v=>{ eqPre=v; }));
 EQ_FREQS.forEach((f,i)=>{
   const b=document.createElement('div'); b.className='band'; eqBands.appendChild(b);
   drawers.push(makeSlider(b,EQ_LABELS[i]+' Hz',()=>eqGains[i],v=>{ eqGains[i]=v; eqPresetSel.value=''; }));
 });
-/* Courbe de réponse dessinée derrière les curseurs */
+/* Response curve drawn behind the sliders */
 function drawEqCurve(){
   const w=eqCurve.clientWidth, h=eqCurve.clientHeight; if(!w||!h) return;
   const dpr=window.devicePixelRatio||1; eqCurve.width=w*dpr; eqCurve.height=h*dpr;
@@ -939,14 +939,14 @@ function drawEqCurve(){
 new ResizeObserver(drawEqCurve).observe(eqBands);
 function onEqChange(){ applyEq(); drawEqCurve(); saveSettings(); }
 function redrawEq(){ drawers.forEach(d=>d()); drawEqCurve(); }
-eqPresetSel.onchange=()=>{ const p=EQ_PRESETS[eqPresetSel.value]; if(!p) return; eqGains=p.slice(); redrawEq(); eqRead.textContent='Préréglage : '+eqPresetSel.value; onEqChange(); };
-$('eqReset').onclick=()=>{ eqGains=EQ_PRESETS.Flat.slice(); eqPre=0; eqPresetSel.value='Flat'; redrawEq(); eqRead.textContent='Égaliseur remis à zéro'; onEqChange(); };
+eqPresetSel.onchange=()=>{ const p=EQ_PRESETS[eqPresetSel.value]; if(!p) return; eqGains=p.slice(); redrawEq(); eqRead.textContent='Preset: '+eqPresetSel.value; onEqChange(); };
+$('eqReset').onclick=()=>{ eqGains=EQ_PRESETS.Flat.slice(); eqPre=0; eqPresetSel.value='Flat'; redrawEq(); eqRead.textContent='Equalizer reset'; onEqChange(); };
 function setEqOn(on){ eqEnabled=on; $('eqOn').classList.toggle('on',on); $('eqOn').textContent=on?'ON':'OFF'; eqEl.classList.toggle('off',!on); }
 $('eqOn').onclick=()=>{ setEqOn(!eqEnabled); onEqChange(); };
 $('eqFold').onclick=()=>{ const f=eqEl.classList.toggle('folded'); $('eqFold').textContent=f?'▸':'▾'; saveSettings(); };
 
-/* ---- Réglages mémorisés (volume, EQ, visualiseur, shuffle, repeat) ---- */
-let settingsReady=false;   /* évite d'écraser les réglages pendant leur chargement */
+/* ---- Saved settings (volume, EQ, visualizer, shuffle, repeat) ---- */
+let settingsReady=false;   /* avoids overwriting the settings while they are loading */
 function saveSettings(){
   if(!settingsReady) return;
   try{ localStorage.setItem('creepyamp.settings',JSON.stringify({vol:+vol.value,eqGains,eqPre,eqPreset:eqPresetSel.value,eqOn:eqEnabled,
@@ -964,11 +964,12 @@ function saveSettings(){
     shuffleOn=!!st.shuffleOn; shufBtn.classList.toggle('on',shuffleOn);
     if(['off','all','one'].includes(st.repeatMode)) setRepeat(st.repeatMode);
   }
-  eqPresetSel.value=(st&&st.eqPreset!==undefined)?st.eqPreset:'Flat';
+  const LEGACY_PRESETS={'Classique':'Classical','Basses':'Bass','Aigus':'Treble','Voix':'Vocal','Petits HP':'Small speakers','Perso':''};
+  eqPresetSel.value=(st&&st.eqPreset!==undefined)?(LEGACY_PRESETS[st.eqPreset]!==undefined?LEGACY_PRESETS[st.eqPreset]:st.eqPreset):'Flat';
   redrawEq();
 })();
 
-/* ---- MilkDrop (Butterchurn) chargé à la demande ---- */
+/* ---- MilkDrop (Butterchurn) loaded on demand ---- */
 const CDN='https://cdn.jsdelivr.net/npm/';
 const MILK_SCRIPTS=[
   CDN+'butterchurn@2.6.7/lib/butterchurn.min.js',
@@ -977,7 +978,7 @@ const MILK_SCRIPTS=[
   CDN+'butterchurn-presets@2.4.7/lib/butterchurnPresetsExtra2.min.js'
 ];
 const AUTO_DELAY=25000, BLEND=4;
-const MILK_QUALITY=Math.min(window.devicePixelRatio||1,1.25); /* 1 = pixels CSS, plus haut = plus net mais plus lourd */
+const MILK_QUALITY=Math.min(window.devicePixelRatio||1,1.25); /* 1 = CSS pixels, higher = sharper but heavier */
 const vizRow=$('vizRow'), vizInner=$('vizInner'), milkCv=$('milk'), presetName=$('presetName');
 const modeBtn=$('modeBtn'), pPrev=$('pPrev'), pNext=$('pNext'), pRand=$('pRand'), pAuto=$('pAuto');
 
@@ -989,16 +990,16 @@ function initMilk(){
   if(milk) return Promise.resolve(milk);
   if(milkLoading) return milkLoading;
   milkLoading=(async()=>{
-    if(!document.createElement('canvas').getContext('webgl2')) throw new Error('WebGL2 indisponible');
+    if(!document.createElement('canvas').getContext('webgl2')) throw new Error('WebGL2 unavailable');
     await Promise.all(MILK_SCRIPTS.map(loadScript));
     const bc=pickExport(window.butterchurn);
     const packs=[window.butterchurnPresets,window.butterchurnPresetsExtra,window.butterchurnPresetsExtra2].map(pickExport).filter(Boolean);
     const presets=Object.assign({},...packs.map(p=>p.getPresets()));
     const names=Object.keys(presets).sort((a,b)=>a.localeCompare(b));
     ensureCtx();
-    /* Butterchurn ne dimensionne pas le canvas de sortie : on règle nous-mêmes le buffer
-       à la taille réelle affichée (x qualité), et on lui passe cette même taille avec pixelRatio 1,
-       sinon son viewport ne correspond pas au buffer et l'image apparaît zoomée. */
+    /* Butterchurn does not size the output canvas: we set the buffer ourselves
+       to the real displayed size (x quality), and pass it that same size with pixelRatio 1,
+       otherwise its viewport does not match the buffer and the image looks zoomed in. */
     const sizeMilk=()=>{
       const b=vizInner.getBoundingClientRect();
       const w=Math.max(1,Math.round(b.width*MILK_QUALITY)), h=Math.max(1,Math.round(b.height*MILK_QUALITY));
@@ -1040,7 +1041,7 @@ async function toggleMode(){
       presetName.classList.add('show'); clearTimeout(nameTimer); nameTimer=setTimeout(()=>presetName.classList.remove('show'),3500);
     }catch(e){
       modeBtn.textContent='LED';
-      nowTitle.textContent='▸ MilkDrop indisponible : '+e.message; nowTitle.classList.add('warn');
+      nowTitle.textContent='▸ MilkDrop unavailable: '+e.message; nowTitle.classList.add('warn');
     }
     modeBtn.disabled=false;
   } else {
@@ -1052,7 +1053,7 @@ pPrev.onclick=()=>milk&&setPreset(milk.cur-1);
 pNext.onclick=()=>milk&&setPreset(milk.cur+1);
 pRand.onclick=randomPreset;
 pAuto.onclick=()=>{ autoOn=!autoOn; pAuto.classList.toggle('on',autoOn); lastSwitch=performance.now(); saveSettings(); };
-/* Restauration du visualiseur (mode LED / MilkDrop, changement auto, dernier preset) */
+/* Visualizer restore (LED / MilkDrop mode, auto switching, last preset) */
 (function loadVizSettings(){
   let st=null; try{ st=JSON.parse(localStorage.getItem('creepyamp.settings')); }catch(e){}
   if(st){
@@ -1069,7 +1070,7 @@ document.addEventListener('keydown',e=>{
   else if(mode==='milk'&&milk){ if(k==='n') setPreset(milk.cur+1); else if(k==='b') setPreset(milk.cur-1); else if(k==='r') randomPreset(); }
 });
 
-/* ---- Plein écran : uniquement la visualisation (audio) ou le film (vidéo) ---- */
+/* ---- Fullscreen: only the visualization (audio) or the movie (video) ---- */
 let fakeFs=false, idleTimer=0;
 function inFs(){ return stage.classList.contains('fs'); }
 function onFsState(on){
@@ -1080,7 +1081,7 @@ function onFsState(on){
 async function enterFs(){
   const req=stage.requestFullscreen||stage.webkitRequestFullscreen;
   try{ if(!req) throw 0; await req.call(stage); }
-  catch(e){ fakeFs=true; onFsState(true); }   /* repli si le navigateur ou l'iframe refuse le vrai plein écran */
+  catch(e){ fakeFs=true; onFsState(true); }   /* fallback if the browser or iframe refuses real fullscreen */
 }
 function exitFs(){
   if(fakeFs){ fakeFs=false; onFsState(false); return; }
@@ -1122,7 +1123,7 @@ document.addEventListener('keydown',e=>{
   else if(e.key===' ' && tag!=='BUTTON' && tag!=='INPUT'){ e.preventDefault(); currentEl.paused?playBtn.onclick():currentEl.pause(); wake(); }
 });
 
-/* ---- Redimensionnement horizontal de la playlist ---- */
+/* ---- Horizontal resizing of the playlist ---- */
 (function(){
   const side=$('side'), handle=$('sideResizer'), body=document.querySelector('.body');
   const MIN=200, MAX=560;

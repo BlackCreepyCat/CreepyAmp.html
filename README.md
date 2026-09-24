@@ -1,4 +1,4 @@
-# 🦇 CREEPY AMP
+# 🦇 CreepyAmp
 
 **A Winamp-inspired audio & video player that lives in a single HTML file.**
 Drop your tracks in, get a 10-band equalizer, a glowing LED spectrum analyzer, and thousands of MilkDrop visualizations. No install, no build step, no server, no upload.

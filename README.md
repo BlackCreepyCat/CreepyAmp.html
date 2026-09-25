@@ -166,6 +166,9 @@ Click the fullscreen button in the title bar, press **F**, or double-click the s
 
 Shortcuts are ignored while a modifier (`Ctrl`, `Alt`, `Cmd`) is held.
 
+Version 2.0 with 2 stereo 3D Expander!
+<img width="1174" height="872" alt="image" src="https://github.com/user-attachments/assets/f870bade-9abd-4f64-992f-27bdc492a60c" />
+
 ## Saved settings
 
 Settings are stored in your browser's `localStorage` on your device:

@@ -3,7 +3,12 @@
 **A Winamp-inspired audio & video player that lives in a single HTML file.**
 Drop your tracks in, get a 10-band equalizer, a glowing LED spectrum analyzer, and thousands of MilkDrop visualizations. No install, no build step, no server, no upload.
 
+Version 1.0:
 <img width="1440" height="864" alt="image" src="https://github.com/user-attachments/assets/b1489e36-f14c-4e9e-9a08-72ca28d22f1c" />
+
+Version 2.0 width 3D stereo, and new look:
+<img width="1485" height="872" alt="image" src="https://github.com/user-attachments/assets/1fc80c4d-6e5b-4605-bed5-9d515532995e" />
+
 
 ---
 
